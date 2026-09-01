@@ -1,0 +1,1 @@
+"""Simulated event producer package."""

@@ -1,0 +1,1 @@
+"""Healthcare integration application package."""
