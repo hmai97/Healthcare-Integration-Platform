@@ -7,6 +7,7 @@ from contextlib import asynccontextmanager
 import psycopg2
 from dotenv import load_dotenv
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from psycopg2.extras import RealDictCursor
 
 from app.api.routes.appointments import router as appointments_router
@@ -45,6 +46,14 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan, title="Healthcare Integration Platform")
+# lets the browser fetch from the backend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 app.include_router(events_router)
 app.include_router(patients_router)
 app.include_router(appointments_router)
